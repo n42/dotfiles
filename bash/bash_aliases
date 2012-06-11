@@ -1,0 +1,25 @@
+#
+# Convenience stuff
+#
+alias sai='sudo apt-get install'
+alias saud='sudo apt-get update'
+alias saug='sudo apt-get upgrade'
+alias aps='aptitude search'
+alias apsh='aptitude show'
+
+alias EB='vi ~/.bashrc && source ~/.bashrc'
+alias EA='vi ~/.bash_aliases && source ~/.bash_aliases'
+alias EF='vi ~/.bash_functions && source ~/.bash_functions'
+
+alias si='sudo vi'
+
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+#
+# Local aliases and overrides
+#
+if [ -f ~/.bash_aliases_local ]; then
+    . ~/.bash_aliases_local
+fi

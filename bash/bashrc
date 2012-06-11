@@ -1,0 +1,128 @@
+# Don't do anything if not running interactively
+[[ -z "$PS1" ]] && return
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+export EDITOR=vi
+
+unset HISTFILESIZE
+HISTSIZE=1000000
+HISTCONTROL=ignoreboth
+
+PROMPT_COMMAND='history -a'
+
+# Autocorrect fudged paths in cd calls
+shopt -s cdspell &>/dev/null
+
+# Update columnds and rows is window size changes
+shopt -s checkwinsize &>/dev/null
+
+# Put multiline commands onto one line of history
+shopt -s cmdhist &>/dev/null
+
+# Autocorrect fudged paths in during completion
+shopt -s dirspell &>/dev/null
+
+# Include dotfiles in pattern matching
+shopt -s dotglob &>/dev/null
+
+# Enable advanced pattern matching
+shopt -s extglob &>/dev/null
+
+# Enable double-starring paths
+shopt -s globstar &>/dev/null
+
+# Append rather than overwrite bash history
+shopt -s histappend &>/dev/null
+
+# Never beep at me.
+hash setterm &>/dev/null && setterm -bfreq 0
+
+# Use completion, if available
+[[ -e /etc/bash_completion ]] && source /etc/bash_completion
+
+# Force 256 colours if we're using xterm
+case "$TERM" in
+  xterm*) TERM=xterm-256color;;
+esac
+
+hash tput && COLORS=$(tput colors)
+
+LS_OPTS=
+GREP_OPTS=
+
+# If we have a colour terminal, we'll use colours for ls and grep
+if [[ COLORS -ge 8 ]]; then
+  hash dircolors &>/dev/null && eval "$(dircolors -b)"
+  if ls --help | grep -- --color &>/dev/null; then
+    LS_OPTS="${LS_OPTS} --color=auto"
+  fi
+  if grep --help | grep -- --color &>/dev/null; then
+    GREP_OPTS="${GREP_OPTS} --color=auto"
+  fi
+fi
+
+# More grep options; exclude version control files
+if ls --help | grep -- --exclude &>/dev/null; then
+  for PATTERN in .git .gitignore .gitmodules ; do
+    GREP_OPTS="${GREP_OPTS} --exclude=${PATTERN}"
+  done
+fi
+if grep --help | grep -- --exclude-dir &>/dev/null; then
+  for PATTERN in .cvs .git .hg .svn ; do
+    GREP_OPTS="${GREP_OPTS} --exclude-dir=${PATTERN}"
+  done
+fi
+
+# If we're a screen terminal within a 256 color outer, force a 256 color 
+# screen terminal as well. This deals with a tmux race condition bug.
+case "$CONTAININ_TERM" in 
+  *256color)
+    TERM=screen-256color
+    unset CONTAINING_TERM
+    ;;
+esac
+
+
+#
+# Set prompt
+#
+red=$(tput setaf 1)
+grn=$(tput setaf 2)
+ylw=$(tput setaf 3)
+blu=$(tput setaf 4)
+prp=$(tput setaf 5)
+tea=$(tput setaf 6)
+bld=$(tput bold)
+res=$(tput sgr0)
+
+PS1='\[$grn\]$(date +%H:%M:%S) \u@\h\[$res$ylw\]$(__git_ps1) \[$blu\]\w\[$bld\] $ \[$res\]'
+
+
+#
+# Alias definitions.
+#
+alias ls="ls ${LS_OPTS}"
+alias grep="grep ${GREP_OPTS}"
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+#
+# Function definitions.
+#
+if [ -f ~/.bash_functions ]; then
+    . ~/.bash_functions
+fi
+
+#
+# Local overrides
+#
+if [ -f ~/.bashrc_local ]; then
+    . ~/.bashrc_local
+fi
+

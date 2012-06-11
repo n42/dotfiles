@@ -1,0 +1,11 @@
+# Split off a tmux window and do whatever
+function tmw {
+    tmux split-window -dh "$*"
+}
+
+#
+# Local aliases and overrides
+#
+if [ -f ~/.bash_functions_local ]; then
+    . ~/.bash_functions_local
+fi

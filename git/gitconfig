@@ -1,0 +1,15 @@
+[color]
+	ui = auto
+
+[user]
+	name  = Andreas Nordin
+	email = anordin@n42.se
+
+[alias]
+	s       = status --short
+  co      = checkout
+  ci      = commit 
+  l       = log --oneline --decorate
+  ix      = diff --cached
+  unstage = reset HEAD --
+  lol     = log --pretty=oneline --abbrev-commit --graph --decorate
