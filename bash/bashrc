@@ -1,5 +1,5 @@
 # Don't do anything if not running interactively
-[[ -z "$PS1" ]] && return
+if [[ -n "$PS1" ]] ; then
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
@@ -86,7 +86,6 @@ case "$CONTAININ_TERM" in
     ;;
 esac
 
-
 #
 # Set prompt
 #
@@ -100,7 +99,6 @@ bld=$(tput bold)
 res=$(tput sgr0)
 
 PS1='\[$grn\]$(date +%H:%M:%S) \u@\h\[$res$ylw\]$(__git_ps1) \[$blu\]\w\[$bld\] $ \[$res\]'
-
 
 #
 # Alias definitions.
@@ -119,10 +117,10 @@ if [ -f ~/.bash_functions ]; then
     . ~/.bash_functions
 fi
 
+fi # end 'dont do anything'
 #
 # Local overrides
 #
 if [ -f ~/.bashrc_local ]; then
     . ~/.bashrc_local
 fi
-

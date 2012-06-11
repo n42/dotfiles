@@ -9,6 +9,7 @@
 ln -fs ".dotfiles/bash/bashrc" "${HOME}/.bashrc"
 ln -fs ".dotfiles/bash/bash_functions" "${HOME}/.bash_functions"
 ln -fs ".dotfiles/bash/bash_aliases" "${HOME}/.bash_aliases"
+ln -fs ".dotfiles/bash/bash_logout" "${HOME}/.bash_logout"
 
 ln -fs ".dotfiles/tmux/tmux.conf" "${HOME}/.tmux.conf"
 
