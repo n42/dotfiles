@@ -1,30 +1,65 @@
+set nocompatible
+
+if has("autocmd")
+  filetype on
+  filetype plugin on
+  filetype indent on
+  autocmd filetype python set expandtab
+endif
 
 let t_highlight_boolean=1
 let t_highlight_types=1
 let t_highlight_more_types=1
 let t_highlight_debug=1
+
 set background=dark
+
 syntax enable
 " fix
-set expandtab 
 set tabstop=2
 set shiftwidth=2
+set shiftround
 set softtabstop=2
+set smarttab
+
 set autoindent
 set smartindent
 " end fix
-set nocompatible
+
 set modelines=0
 set scrolloff=3
+
+" Visual stuff
 set showmode
 set showcmd
-set hidden
-set visualbell
 set cursorline
-set ttyfast
 set ruler
-set backspace=indent,eol,start
+set visualbell
+set noerrorbells
+set incsearch
+set showmatch
+set hlsearch
 set laststatus=2
+set lazyredraw
+
+set hidden
+set ttyfast
+set backspace=indent,eol,start
+
+" Increase history
+set history=1000
+set undolevels=1000
+
+set wildmenu
+" Ignore some stuff for wildcards
+set wildignore=*.sw[nop],*.bak,*.pyc,*.class,*.o,*.ali
+
+" No backups or swapfiles
+set nobackup
+set noswapfile
+
+" Toggle paste mode
+set pastetoggle=<F2>
 
 let mapleader=","
 
@@ -33,11 +68,6 @@ vnoremap / /
 
 set ignorecase
 set smartcase
-" set gdefault 
-
-set incsearch
-set showmatch
-set hlsearch
 
 nnoremap <leader><space> :noh<cr>
 nnoremap <tab> %
@@ -45,7 +75,7 @@ vnoremap <tab> %
 
 set wrap
 set linebreak
-set nolist 
+set nolist
 set textwidth=0
 set wrapmargin=0
 set formatoptions=qrn1
@@ -53,41 +83,84 @@ set formatoptions=qrn1
 nnoremap j gj
 nnoremap k gk
 
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
+inoremap <f1> <esc>
+nnoremap <f1> <esc>
+vnoremap <f1> <esc>
 
+" Sane command entry and escape
 nnoremap ; :
+inoremap jj <esc>
 
-inoremap jj <ESC>
-inoremap {{ {<cr>}<ESC>O<tab>
-inoremap (( ()<ESC>i
+" Auto insert closing paren/brace/bracket on double tap
+inoremap (( ()<esc>i
+inoremap {{ {<cr>}<esc>o<tab>
+inoremap [[ []<esc>i
+" Auto insert semicolon and nl on double tap
+inoremap ;; <esc>A;<cr>
 
+" Autosave when losing focus (gvim)
 au FocusLost * :wa
 
 let @q='yyp2xwhc$=yjj'
 
-nnoremap <leader>W :%s/+$//<cr>:let @/=''<CR>
+" Search for trailing whitespace
+nnoremap <leader>ts /\s\+$<cr>
+" Strip all trailing whitespace in file
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+
+" Fold tag
 nnoremap <leader>ft Vatzf
+
+" Reformat paragraph
 nnoremap <leader>q gqip
+
+" Reselect recently pasted block
 nnoremap <leader>v V`]
 
-nnoremap <leader>cs :ConqueTermSplit 
-nnoremap <leader>cvs :ConqueTermVSplit 
-
+" Edit / Source vimrc
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+" Open vertical split and switch to it
 nnoremap <leader>w <C-w>v<C-w>l
+
+" Tab navigation
 nnoremap <leader>nt :tabn<cr>
 nnoremap <leader>pt :tabp<cr>
 
-nnoremap <leader>ts /\s\+$<cr>
-
+" Window nav
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-j>h
 nnoremap <C-k> <C-k>h
 nnoremap <C-l> <C-l>h
 
-filetype plugin on
-filetype indent on
+if has("autocmd")
+	  augroup python_files "{{{
+        au!
+
+        " PEP8 compliance
+        autocmd filetype python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+        autocmd filetype python setlocal textwidth=78
+        autocmd filetype python match ErrorMsg '\%>80v.\+'
+
+        " But disable autowrapping
+        autocmd filetype python setlocal formatoptions-=t
+
+        " Python runners
+        autocmd filetype python noremap <buffer> <F5> :w<CR>:!python %<CR>
+        autocmd filetype python inoremap <buffer> <F5> <Esc>:w<CR>:!python %<CR>
+        autocmd filetype python noremap <buffer> <S-F5> :w<CR>:!ipython %<CR>
+        autocmd filetype python inoremap <buffer> <S-F5> <Esc>:w<CR>:!ipython %<CR>
+				" Debug runner
+        autocmd filetype python noremap <buffer> <F6> :w<CR>:!python -m pdb %<CR>
+        autocmd filetype python inoremap <buffer> <F6> <Esc>:w<CR>:!python -m pdb %<CR>
+
+        " Automatic insertion of breakpoints
+        autocmd filetype python nnoremap <buffer> <leader>bp :normal Oimport pdb; pdb.set_trace()<Esc>
+
+        " Toggling True/False
+        autocmd filetype python nnoremap <silent> <C-t> mmviw:s/True\\|False/\={'True':'False','False':'True'}[submatch(0)]/<CR>`m:nohlsearch<CR>
+
+    augroup end " }}}
+endif
