@@ -93,7 +93,7 @@ inoremap jj <esc>
 
 " Auto insert closing paren/brace/bracket on double tap
 inoremap (( ()<esc>i
-inoremap {{ {<cr>}<esc>o<tab>
+inoremap {{ {<cr>}<esc>O<tab>
 inoremap [[ []<esc>i
 " Auto insert semicolon and nl on double tap
 inoremap ;; <esc>A;<cr>
