@@ -1,15 +1,55 @@
+[core]
+	pager	= less -x4 -r
+
 [color]
-	ui = auto
+	ui	= auto
+
+[diff]
+	algorithm	= patience
 
 [user]
-	name  = Andreas Nordin
-	email = anordin@n42.se
+	name	= Andreas Nordin
+	email	= anordin@n42.se
 
 [alias]
-	s       = status --short
-  co      = checkout
-  ci      = commit 
-  l       = log --oneline --decorate
-  ix      = diff --cached
-  unstage = reset HEAD --
-  lol     = log --pretty=oneline --abbrev-commit --graph --decorate
+	co  = checkout
+	ci  = commit
+	cl	= clone
+
+
+# status, diffs, listings..
+	gr			= grep -Ii
+	s			= status --short
+	ix			= diff --cached
+	l			= log --oneline --decorate
+	ld			= log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+	ll			= log --pretty=format:"%C(yellow)%h\\ %Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+	ls			= log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+	lol			= log --pretty=oneline --abbrev-commit --graph --decorate
+
+	unstage		= reset HEAD --
+	uncommit	= reset HEAD~
+
+	mad			= !git s | awk '/ M / {print $2}' | xargs git add
+	snapshot	= !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+
+
+	# assume file is unchanged
+	assume		= update-index --assume-unchanged
+	# remove assumption
+	unassume	= update-index --no-assume-unchanged
+	# show assumptions
+	assumed		= "!git ls-files -v | grep ^h | cut -c 3-"
+	# remove all assumptions
+	unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
+	# assume that everything is unchanged
+	assumeall	= "!git st -s | awk {'print $2'} | xargs git assume"
+
+	#merging
+	ours	= "!f() { git co --ours $@ && git add $@; }; f"
+	theirs	= "!f() { git co --theirs $@ && git add $@; }; f"
+
+	# svn
+	svnr	= svn rebase
+	svnd	= svn dcommit
+	svnl	= svn log --oneline --show-commit
