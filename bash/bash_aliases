@@ -1,6 +1,8 @@
 #
 # Convenience stuff
 #
+alias vi=vim
+
 alias sai='sudo apt-get install'
 alias saud='sudo apt-get update'
 alias saug='sudo apt-get upgrade'
@@ -10,6 +12,10 @@ alias apsh='aptitude show'
 alias EB='vi ~/.bashrc && source ~/.bashrc'
 alias EA='vi ~/.bash_aliases && source ~/.bash_aliases'
 alias EF='vi ~/.bash_functions && source ~/.bash_functions'
+
+alias EBL='vi ~/.bashrc_local && source ~/.bashrc_local'
+alias EAL='vi ~/.bash_aliases_local && source ~/.bash_aliases_local'
+alias EFL='vi ~/.bash_functions_local && source ~/.bash_functions_local'
 
 alias si='sudo vi'
 

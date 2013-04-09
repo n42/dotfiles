@@ -87,7 +87,7 @@ case "$CONTAININ_TERM" in
 esac
 
 #
-# Set prompt
+# Set default prompt
 #
 red=$(tput setaf 1)
 grn=$(tput setaf 2)
@@ -98,7 +98,7 @@ tea=$(tput setaf 6)
 bld=$(tput bold)
 res=$(tput sgr0)
 
-PS1='\[$grn\]$(date +%H:%M:%S) \u@\h\[$res$ylw\]$(__git_ps1) \[$blu\]\w\[$bld\] $ \[$res\]'
+PS1='\[$grn\]$(date +%H:%M:%S) \u@\h \[$blu\]\w\[$bld\] $ \[$res\]'
 
 #
 # Alias definitions.
@@ -118,6 +118,7 @@ if [ -f ~/.bash_functions ]; then
 fi
 
 fi # end 'dont do anything'
+
 #
 # Local overrides
 #
