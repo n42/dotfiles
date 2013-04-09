@@ -4,7 +4,6 @@ if has("autocmd")
   filetype on
   filetype plugin on
   filetype indent on
-  autocmd filetype python set expandtab
 endif
 
 let t_highlight_boolean=1
@@ -16,10 +15,10 @@ set background=dark
 
 syntax enable
 " fix
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set shiftround
-set softtabstop=2
+set softtabstop=4
 set smarttab
 
 set autoindent
@@ -135,32 +134,3 @@ nnoremap <C-j> <C-j>h
 nnoremap <C-k> <C-k>h
 nnoremap <C-l> <C-l>h
 
-if has("autocmd")
-	  augroup python_files "{{{
-        au!
-
-        " PEP8 compliance
-        autocmd filetype python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-        autocmd filetype python setlocal textwidth=78
-        autocmd filetype python match ErrorMsg '\%>80v.\+'
-
-        " But disable autowrapping
-        autocmd filetype python setlocal formatoptions-=t
-
-        " Python runners
-        autocmd filetype python noremap <buffer> <F5> :w<CR>:!python %<CR>
-        autocmd filetype python inoremap <buffer> <F5> <Esc>:w<CR>:!python %<CR>
-        autocmd filetype python noremap <buffer> <S-F5> :w<CR>:!ipython %<CR>
-        autocmd filetype python inoremap <buffer> <S-F5> <Esc>:w<CR>:!ipython %<CR>
-				" Debug runner
-        autocmd filetype python noremap <buffer> <F6> :w<CR>:!python -m pdb %<CR>
-        autocmd filetype python inoremap <buffer> <F6> <Esc>:w<CR>:!python -m pdb %<CR>
-
-        " Automatic insertion of breakpoints
-        autocmd filetype python nnoremap <buffer> <leader>bp :normal Oimport pdb; pdb.set_trace()<Esc>
-
-        " Toggling True/False
-        autocmd filetype python nnoremap <silent> <C-t> mmviw:s/True\\|False/\={'True':'False','False':'True'}[submatch(0)]/<CR>`m:nohlsearch<CR>
-
-    augroup end " }}}
-endif
