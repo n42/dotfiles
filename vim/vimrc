@@ -100,8 +100,6 @@ inoremap ;; <esc>A;<cr>
 " Autosave when losing focus (gvim)
 au FocusLost * :wa
 
-let @q='yyp2xwhc$=yjj'
-
 " Search for trailing whitespace
 nnoremap <leader>ts /\s\+$<cr>
 " Strip all trailing whitespace in file
