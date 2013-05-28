@@ -105,6 +105,8 @@ nnoremap <leader>ts /\s\+$<cr>
 " Strip all trailing whitespace in file
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
+" Ada/VHDL comment selected block
+let @c=":s/^/--/g:noh"
 
 " Fold tag
 nnoremap <leader>ft Vatzf

@@ -23,6 +23,8 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+alias ssh='ssh -X'
+
 #
 # Local aliases and overrides
 #
