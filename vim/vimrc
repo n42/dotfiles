@@ -1,9 +1,17 @@
 set nocompatible
 
+execute pathogen#infect()
+
+" NERDTree
+map <C-n> :NERDTreeToggle<cr>
+
 if has("autocmd")
   filetype on
   filetype plugin on
   filetype indent on
+
+  " NERDTree
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 endif
 
 let t_highlight_boolean=1
@@ -92,7 +100,7 @@ inoremap jj <esc>
 
 " Auto insert closing paren/brace/bracket on double tap
 inoremap (( ()<esc>i
-inoremap {{ {<cr>}<esc>O<tab>
+inoremap {{ <space>{<cr>}<esc>O
 inoremap [[ []<esc>i
 " Auto insert semicolon and nl on double tap
 inoremap ;; <esc>A;<cr>
@@ -107,6 +115,7 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 " Ada/VHDL comment selected block
 let @c=":s/^/--/g:noh"
+let @v=":s@^@//@g:noh"
 
 " Fold tag
 nnoremap <leader>ft Vatzf
