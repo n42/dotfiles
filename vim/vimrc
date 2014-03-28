@@ -143,3 +143,8 @@ nnoremap <C-j> <C-j>h
 nnoremap <C-k> <C-k>h
 nnoremap <C-l> <C-l>h
 
+" always show the damn gitgutter
+let g:gitgutter_sign_column_always = 1
+" Sort out gutter colours
+highlight clear SignColumn
+

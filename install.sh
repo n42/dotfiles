@@ -16,3 +16,23 @@ ln -fs ".dotfiles/tmux/tmux.conf" "${HOME}/.tmux.conf"
 ln -fs ".dotfiles/git/gitconfig" "${HOME}/.gitconfig"
 
 ln -fs ".dotfiles/vim/vimrc" "${HOME}/.vimrc"
+
+
+# install pathogen
+mkdir -p "${HOME}/.vim/autoload"
+pushd "${HOME}/.vim/autoload"
+curl -Sso pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+popd
+
+
+# install plugin bundles
+mkdir -p "${HOME}/.vim/bundle"
+pushd "${HOME}/.vim/bundle"
+
+   # install nerdtree
+   git clone https://github.com/scrooloose/nerdtree.git
+
+   # install git-gutter
+   git clone git://github.com/airblade/vim-gitgutter.git
+
+popd
