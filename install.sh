@@ -21,9 +21,15 @@ ln -fs ".dotfiles/vim/vimrc" "${HOME}/.vimrc"
 # install pathogen
 mkdir -p "${HOME}/.vim/autoload"
 pushd "${HOME}/.vim/autoload"
-curl -Sso pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+	curl -Sso pathogen.vim https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 popd
 
+# install non-bundle plugins
+mkdir -p "${HOME}/.vim/plugin"
+pushd "${HOME}/.vim/plugin"
+	# vim-gnupg
+	wget https://raw.githubusercontent.com/jamessan/vim-gnupg/master/plugin/gnupg.vim
+popd
 
 # install plugin bundles
 mkdir -p "${HOME}/.vim/bundle"
