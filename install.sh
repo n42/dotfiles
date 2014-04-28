@@ -28,7 +28,7 @@ popd
 mkdir -p "${HOME}/.vim/plugin"
 pushd "${HOME}/.vim/plugin"
 	# vim-gnupg
-	wget https://raw.githubusercontent.com/jamessan/vim-gnupg/master/plugin/gnupg.vim
+	curl -Sso gnupg.vim https://raw.githubusercontent.com/jamessan/vim-gnupg/master/plugin/gnupg.vim
 popd
 
 # install plugin bundles
