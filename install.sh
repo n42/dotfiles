@@ -40,5 +40,14 @@ pushd "${HOME}/.vim/bundle"
 
    # install git-gutter
    git clone git://github.com/airblade/vim-gitgutter.git
+popd
 
+# install irssi plugins
+mkdir -p "${HOME}/.irssi/scripts/autorun"
+pushd "${HOME}/.irssi/scripts"
+	# separate prompt per window
+	curl -Sso per_window_prompt.pl http://wouter.coekaerts.be/irssi/scripts/per_window_prompt.pl
+	pushd "${HOME}/.irssi/scripts/autorun"
+	ln -s ../per_window_prompt.pl per_window_prompt.pl
+	popd
 popd
