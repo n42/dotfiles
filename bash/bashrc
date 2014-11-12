@@ -102,6 +102,9 @@ export GIT_PS1_SHOWDIRTYSTATE=true
 if [ -e /usr/share/git-core/contrib/completion/git-prompt.sh ] ; then
 	. /usr/share/git-core/contrib/completion/git-prompt.sh
 	PS1='\[${grn}\]$(date +%H:%M:%S) \[${bld}\]\u@\h \[${ylw}\]$(__git_ps1 "(%s)") \[${blu}\]\w\[${bld}\] $ \[${res}\]'
+elif [ -e /etc/bash_completion.d/git-prompt ] ; then
+	. /etc/bash_completion.d/git-prompt
+	PS1='\[${grn}\]$(date +%H:%M:%S) \[${bld}\]\u@\h \[${ylw}\]$(__git_ps1 "(%s)") \[${blu}\]\w\[${bld}\] $ \[${res}\]'
 else
 	PS1="\[${grn}\]$(date +%H:%M:%S) \[${bld}\]\u@\h \[${blu}\]\w\[${bld}\] $ \[${res}\]"
 fi
