@@ -5,6 +5,26 @@
 # git submodule --quiet update --init
 # cd "${OLDHOME}"
 
+if [ -e "/usr/bin/yum" ] ; then
+	PKGMAN="yum"
+elif [ -e "/usr/bin/apt-get" ] ; then
+	PKGMAN="apt-get"
+else
+	echo "Couldn't find yum or apt-get, bailing out!"
+	exit 1
+fi
+
+if [ ! -e "/usr/bin/curl" ] ; then
+	echo "curl not found, installing.."
+	sudo $PKGMAN install curl
+else
+fi
+
+if [ ! -e "/usr/bin/git" ] ; then
+	echo "git not found, installing.."
+	sudo $PKGMAN install git
+fi
+
 # Link in files, replacing whatever's there
 ln -fs ".dotfiles/bash/bashrc" "${HOME}/.bashrc"
 ln -fs ".dotfiles/bash/bash_functions" "${HOME}/.bash_functions"
@@ -48,6 +68,6 @@ pushd "${HOME}/.irssi/scripts"
 	# separate prompt per window
 	curl -Sso per_window_prompt.pl http://wouter.coekaerts.be/irssi/scripts/per_window_prompt.pl
 	pushd "${HOME}/.irssi/scripts/autorun"
-	ln -s ../per_window_prompt.pl per_window_prompt.pl
+	ln -fs ../per_window_prompt.pl per_window_prompt.pl
 	popd
 popd
