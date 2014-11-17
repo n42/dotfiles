@@ -5,6 +5,8 @@
 # git submodule --quiet update --init
 # cd "${OLDHOME}"
 
+set -e
+
 if [ -e "/usr/bin/yum" ] ; then
 	PKGMAN="yum"
 elif [ -e "/usr/bin/apt-get" ] ; then
@@ -17,7 +19,6 @@ fi
 if [ ! -e "/usr/bin/curl" ] ; then
 	echo "curl not found, installing.."
 	sudo $PKGMAN install curl
-else
 fi
 
 if [ ! -e "/usr/bin/git" ] ; then
