@@ -61,6 +61,9 @@ set wildmenu
 " Ignore some stuff for wildcards
 set wildignore=*.sw[nop],*.bak,*.pyc,*.class,*.o,*.ali
 
+" Handle screwy filetype mappings
+au BufNewFile,BufRead *.cls set filetype=tex
+
 " No backups or swapfiles
 set nobackup
 set noswapfile
