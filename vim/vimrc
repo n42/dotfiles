@@ -97,6 +97,10 @@ inoremap <f1> <esc>
 nnoremap <f1> <esc>
 vnoremap <f1> <esc>
 
+" make < > shifts keep selection
+vnoremap < <gv
+vnoremap > >gv
+
 " Sane command entry and escape
 nnoremap ; :
 inoremap jj <esc>
