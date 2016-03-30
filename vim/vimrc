@@ -127,11 +127,17 @@ let @v=":s@^@//@g:noh"
 " Fold tag
 nnoremap <leader>ft Vatzf
 
+" Space open/closes folds
+nnoremap <space> za
+
 " Reformat paragraph
 nnoremap <leader>q gqip
 
 " Reselect recently pasted block
 nnoremap <leader>v V`]
+
+" Highlight last inserted text
+nnoremap gV `[v`]
 
 " Edit / Source vimrc
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
@@ -154,4 +160,16 @@ nnoremap <C-l> <C-l>h
 let g:gitgutter_sign_column_always = 1
 " Sort out gutter colours
 highlight clear SignColumn
+
+" Strip all trailing whitespace
+function! <SID>StripTrailingWhitespaces()
+   let _s=@/
+   let l=line(".")
+   let c=col(".")
+   %s/\s\+$//e
+   let @/=_s
+   call cursor(l,c)
+endfunction
+
+nnoremap <leader>sw :call <SID>StripTrailingWhitespaces()<cr>
 
