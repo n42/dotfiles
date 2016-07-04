@@ -34,6 +34,8 @@
 	mad			= !git s | awk '/ M / {print $2}' | xargs git add
 	snapshot	= !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
 
+	save		= !sh -c 'export PREV=$(git symbolic-ref HEAD|cut -d/ -f3-) && git checkout -b "$1" && git commit -am "$1" && git checkout "$PREV"' -
+
 
 	# assume file is unchanged
 	assume		= update-index --assume-unchanged
