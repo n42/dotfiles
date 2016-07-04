@@ -26,7 +26,7 @@
 	ll			= log --pretty=format:"%C(yellow)%h\\ %Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
 	ls			= log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
 	lol			= log --pretty=oneline --abbrev-commit --graph --decorate
-	lola		= log --pretty=oneline --abbrev-commit --graph --decorate --all -25
+	lola		= log --pretty=oneline --abbrev-commit --graph --decorate --all -40
 
 	unstage		= reset HEAD --
 	uncommit	= reset HEAD~
@@ -54,3 +54,8 @@
 	svnr	= svn rebase
 	svnd	= svn dcommit
 	svnl	= svn log --oneline --show-commit
+
+[init]
+	templatedir = ~/.git_template
+[push]
+	default = matching

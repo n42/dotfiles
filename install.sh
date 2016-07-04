@@ -72,3 +72,7 @@ pushd "${HOME}/.irssi/scripts"
 	ln -fs ../per_window_prompt.pl per_window_prompt.pl
 	popd
 popd
+
+# install git hooks etc
+mkdir -p "${HOME}/.git_template/hooks"
+ln -fs ".dotfiles/git/hooks/commit-msg" "${HOME}/.git_template/hooks/commit-msg"
