@@ -17,7 +17,7 @@ PROMPT_COMMAND='history -a'
 # Autocorrect fudged paths in cd calls
 shopt -s cdspell &>/dev/null
 
-# Update columnds and rows is window size changes
+# Update columns and rows if window size changes
 shopt -s checkwinsize &>/dev/null
 
 # Put multiline commands onto one line of history
